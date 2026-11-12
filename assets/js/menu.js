@@ -44,7 +44,7 @@ function renderCustomerMenu(index) {
     if (pageHeader) {
         pageHeader.innerHTML = `
             <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-                <a href="index.html" class="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 mb-6">
+                <a href="Bondil-studio.html" class="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 mb-6">
                     <i class="fa-solid fa-arrow-left"></i> Retour à Bondil-studio
                 </a>
                 <div class="w-16 h-16 rounded-2xl ${palette.logoBg} flex items-center justify-center mx-auto mb-4 shadow-lg">
