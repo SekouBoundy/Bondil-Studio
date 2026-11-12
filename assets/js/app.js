@@ -84,7 +84,7 @@ function renderPaginationBullets() {
                 title="${idx + 1}. ${client.name}"
                 class="h-2.5 rounded-full transition-all duration-300 focus:outline-none ${
                     isActive 
-                    ? 'w-7 bg-indigo-600 shadow-sm' 
+                    ? 'w-7 bg-orange-600 shadow-sm' 
                     : 'w-2.5 bg-slate-300 hover:bg-slate-400'
                 }">
             </button>
@@ -96,7 +96,7 @@ function renderPaginationBullets() {
     if (indicator) {
         indicator.innerHTML = `
             Menu <span class="font-bold text-slate-800">${featuredIndex + 1} / ${clientsData.length}</span> — 
-            <span class="text-indigo-600 font-semibold">${activeClient.name}</span> 
+            <span class="text-orange-600 font-semibold">${activeClient.name}</span> 
             <span class="text-slate-400">(${activeClient.sector})</span>
         `;
     }
@@ -138,7 +138,7 @@ function toggleAutoplay() {
     const icon = document.getElementById('autoplay-icon');
     const label = document.getElementById('autoplay-label');
     if (autoplayEnabled) {
-        if (icon) icon.className = 'fa-solid fa-pause text-[10px] text-indigo-600';
+        if (icon) icon.className = 'fa-solid fa-pause text-[10px] text-orange-600';
         if (label) label.textContent = 'Défilement auto';
     } else {
         if (icon) icon.className = 'fa-solid fa-play text-[10px] text-slate-500';
@@ -173,11 +173,11 @@ function renderPhonesShowcase() {
         const isCenter = offset === 0;
         const isEdge = Math.abs(offset) === 2;
         const isDark = client.themeMode === 'dark';
-        const palette = accentPalettes[client.accent] || accentPalettes.indigo;
+        const palette = accentPalettes[client.accent] || accentPalettes.orange;
 
         let positionClasses = 'phone-side w-[245px] sm:w-[265px] h-[535px]';
         if (isCenter) {
-            positionClasses = 'phone-featured w-[275px] sm:w-[295px] h-[585px] ring-2 ring-indigo-500/25';
+            positionClasses = 'phone-featured w-[275px] sm:w-[295px] h-[585px] ring-2 ring-orange-500/25';
         } else if (isEdge) {
             positionClasses = 'phone-edge hidden xl:flex w-[225px] h-[500px]';
         }
@@ -253,7 +253,7 @@ function renderPhonesShowcase() {
                 <!-- Hover Overlay CTA -->
                 <div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/35 transition-colors flex items-center justify-center p-4">
                     <span class="opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all px-4 py-2.5 rounded-full bg-white text-slate-900 text-xs font-extrabold shadow-xl flex items-center gap-2">
-                        <i class="fa-solid fa-wand-magic-sparkles text-indigo-600"></i>
+                        <i class="fa-solid fa-wand-magic-sparkles text-slate-600"></i>
                         <span>Personnaliser ce modèle</span>
                     </span>
                 </div>
@@ -262,7 +262,7 @@ function renderPhonesShowcase() {
             <!-- Bottom Template Action Footer -->
             <div class="px-3.5 py-2.5 bg-white text-slate-900 border-t border-slate-100 flex items-center justify-between gap-2 shrink-0">
                 <span class="text-[10px] font-bold text-slate-500">Modèle #${originalIndex + 1}</span>
-                <span class="text-[11px] font-extrabold text-indigo-600 group-hover:underline flex items-center gap-1">
+                <span class="text-[11px] font-extrabold text-slate-600 group-hover:underline flex items-center gap-1">
                     <span>Choisir ce modèle</span>
                     <i class="fa-solid fa-arrow-right text-[9px]"></i>
                 </span>

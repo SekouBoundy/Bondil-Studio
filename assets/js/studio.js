@@ -93,7 +93,7 @@ function switchStudioTab(tabName) {
         const btn = document.getElementById(`studio-tab-${t}`);
         const panel = document.getElementById(`panel-${t}`);
         if (t === tabName) {
-            if (btn) btn.className = 'studio-tab px-4 py-2.5 text-xs sm:text-sm font-bold rounded-t-xl border-b-2 border-indigo-600 text-indigo-600 bg-white flex items-center gap-2 shrink-0';
+            if (btn) btn.className = 'studio-tab px-4 py-2.5 text-xs sm:text-sm font-bold rounded-t-xl border-b-2 border-orange-600 text-orange-600 bg-white flex items-center gap-2 shrink-0';
             if (panel) panel.classList.remove('hidden');
         } else {
             if (btn) btn.className = 'studio-tab px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 shrink-0';
@@ -131,7 +131,7 @@ function renderLogoIconPicker() {
             <button type="button" onclick="selectLogoIcon('${icon}')"
                 class="h-10 rounded-xl border flex items-center justify-center text-sm transition-all ${
                     isSelected 
-                    ? 'border-indigo-600 bg-indigo-600 text-white shadow-sm' 
+                    ? 'border-orange-600 bg-orange-600 text-white shadow-sm' 
                     : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                 }">
                 <i class="fa-solid ${icon}"></i>
@@ -158,10 +158,10 @@ function updateThemeModeButtonsUI() {
     const lightBtn = document.getElementById('btn-mode-light');
     const darkBtn = document.getElementById('btn-mode-dark');
     if (customState.themeMode === 'light') {
-        if (lightBtn) lightBtn.className = 'p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/40 text-left flex items-center gap-3 transition-all';
+        if (lightBtn) lightBtn.className = 'p-4 rounded-2xl border-2 border-orange-600 bg-orange-50/40 text-left flex items-center gap-3 transition-all';
         if (darkBtn) darkBtn.className = 'p-4 rounded-2xl border-2 border-slate-200 bg-white text-left flex items-center gap-3 transition-all';
     } else {
-        if (darkBtn) darkBtn.className = 'p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/40 text-left flex items-center gap-3 transition-all';
+        if (darkBtn) darkBtn.className = 'p-4 rounded-2xl border-2 border-orange-600 bg-orange-50/40 text-left flex items-center gap-3 transition-all';
         if (lightBtn) lightBtn.className = 'p-4 rounded-2xl border-2 border-slate-200 bg-white text-left flex items-center gap-3 transition-all';
     }
 }
@@ -177,7 +177,7 @@ function renderAccentPalettePicker() {
             <button type="button" onclick="selectAccentColor('${key}')"
                 class="p-3 rounded-xl border-2 flex items-center gap-2.5 text-left transition-all ${
                     isSelected 
-                    ? 'border-indigo-600 bg-indigo-50/40 shadow-xs' 
+                    ? 'border-orange-600 bg-orange-50/40 shadow-xs' 
                     : 'border-slate-200 bg-white hover:border-slate-300'
                 }">
                 <span class="w-5 h-5 rounded-full shrink-0 border border-black/10" style="background-color: ${pal.swatch}"></span>
@@ -205,10 +205,10 @@ function updateCardStyleButtonsUI() {
     const roundBtn = document.getElementById('btn-card-rounded');
     const compBtn = document.getElementById('btn-card-compact');
     if (customState.cardStyle === 'rounded') {
-        if (roundBtn) roundBtn.className = 'px-4 py-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/40 text-xs font-bold text-slate-900 flex items-center justify-center gap-2';
+        if (roundBtn) roundBtn.className = 'px-4 py-3 rounded-xl border-2 border-orange-600 bg-orange-50/40 text-xs font-bold text-slate-900 flex items-center justify-center gap-2';
         if (compBtn) compBtn.className = 'px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-700 flex items-center justify-center gap-2';
     } else {
-        if (compBtn) compBtn.className = 'px-4 py-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/40 text-xs font-bold text-slate-900 flex items-center justify-center gap-2';
+        if (compBtn) compBtn.className = 'px-4 py-3 rounded-xl border-2 border-orange-600 bg-orange-50/40 text-xs font-bold text-slate-900 flex items-center justify-center gap-2';
         if (roundBtn) roundBtn.className = 'px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-700 flex items-center justify-center gap-2';
     }
 }
@@ -224,7 +224,7 @@ function renderStudioTemplateSwitcher() {
             <button type="button" onclick="loadBaseTemplateIntoStudio(${idx})"
                 class="px-2.5 py-2 rounded-xl text-left border transition-all ${
                     active 
-                    ? 'border-indigo-600 bg-indigo-50/80 text-indigo-950 shadow-xs' 
+                    ? 'border-orange-600 bg-orange-50/80 text-orange-950 shadow-xs' 
                     : 'border-slate-200 hover:border-slate-300 text-slate-700 bg-white'
                 }">
                 <div class="text-[11px] font-bold truncate">${idx + 1}. ${client.name}</div>
@@ -254,7 +254,7 @@ function renderStudioItemsEditorList() {
                     <img src="${item.img}" alt="${item.name}" class="w-10 h-10 rounded-xl object-cover shrink-0 bg-slate-100">
                     <input type="text" value="${item.name.replace(/"/g, '&quot;')}"
                         oninput="updateCustomItem(${idx}, 'name', this.value)"
-                        class="w-full text-xs font-extrabold text-slate-900 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        class="w-full text-xs font-extrabold text-slate-900 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500">
                 </div>
                 <div class="flex items-center gap-1.5 shrink-0">
                     <button type="button" onclick="toggleItemAvailability(${idx})"
@@ -278,15 +278,15 @@ function renderStudioItemsEditorList() {
                 <input type="text" value="${item.category.replace(/"/g, '&quot;')}"
                     oninput="updateCustomItem(${idx}, 'category', this.value)"
                     placeholder="Catégorie"
-                    class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500">
                 <input type="number" step="0.01" value="${item.price}"
                     oninput="updateCustomItem(${idx}, 'price', parseFloat(this.value) || 0)"
                     placeholder="Prix"
-                    class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500">
                 <input type="text" value="${item.desc.replace(/"/g, '&quot;')}"
                     oninput="updateCustomItem(${idx}, 'desc', this.value)"
                     placeholder="Description"
-                    class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-500">
             </div>
         </div>
     `).join('');
@@ -363,7 +363,7 @@ function renderStudioPhonePreview() {
     const shell = document.getElementById('studio-phone-shell');
     if (!shell) return;
     const isDark = customState.themeMode === 'dark';
-    const palette = accentPalettes[customState.accent] || accentPalettes.indigo;
+    const palette = accentPalettes[customState.accent] || accentPalettes.orange;
 
     const shellBg = isDark ? 'bg-slate-950 text-white' : 'bg-[#F8FAFC] text-slate-900';
     const headerBg = isDark ? 'bg-slate-900 border-b border-slate-800' : 'bg-white border-b border-slate-100';

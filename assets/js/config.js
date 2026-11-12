@@ -40,7 +40,7 @@ const clientsData = [
         name: 'The Baked Potato Factory',
         sector: 'Restaurant & Street-Food',
         themeMode: 'dark',
-        accent: 'indigo',
+        accent: 'orange',
         cardStyle: 'rounded',
         logoIcon: 'fa-fire-flame-curved',
         currency: '€',
@@ -196,7 +196,7 @@ const clientsData = [
         name: 'Zero Pub',
         sector: 'Pub, Burgers & Cocktails',
         themeMode: 'dark',
-        accent: 'indigo',
+        accent: 'orange',
         cardStyle: 'rounded',
         logoIcon: 'fa-beer-mug-empty',
         currency: '€',
@@ -266,7 +266,7 @@ const clientsData = [
         name: 'Morpho Yu Hua',
         sector: 'Gastronomie Asiatique Moderne',
         themeMode: 'light',
-        accent: 'indigo',
+        accent: 'orange',
         cardStyle: 'rounded',
         logoIcon: 'fa-leaf',
         currency: '€',
@@ -293,10 +293,10 @@ const clientsData = [
 
 // Theme & Color Accent Presets
 const accentPalettes = {
-    indigo: { label: 'Indigo', swatch: '#4F46E5', btnBg: 'bg-indigo-600 hover:bg-indigo-700 text-white', pillBg: 'bg-indigo-600 text-white', priceText: 'text-indigo-600 bg-indigo-50', logoBg: 'bg-indigo-600 text-white', ring: 'ring-indigo-500' },
-    gold: { label: 'Or & Ambre', swatch: '#D97706', btnBg: 'bg-amber-500 hover:bg-amber-600 text-slate-950', pillBg: 'bg-amber-500 text-slate-950', priceText: 'text-amber-700 bg-amber-50', logoBg: 'bg-amber-400 text-slate-950', ring: 'ring-amber-500' },
-    emerald: { label: 'Émeraude', swatch: '#059669', btnBg: 'bg-emerald-600 hover:bg-emerald-700 text-white', pillBg: 'bg-emerald-600 text-white', priceText: 'text-emerald-700 bg-emerald-50', logoBg: 'bg-emerald-600 text-white', ring: 'ring-emerald-500' },
-    crimson: { label: 'Carmin', swatch: '#E11D48', btnBg: 'bg-rose-600 hover:bg-rose-700 text-white', pillBg: 'bg-rose-600 text-white', priceText: 'text-rose-600 bg-rose-50', logoBg: 'bg-rose-600 text-white', ring: 'ring-rose-500' },
+    orange: { label: 'Orange', swatch: '#FB923C', btnBg: 'bg-orange-600 hover:bg-orange-700 text-white', pillBg: 'bg-orange-600 text-white', priceText: 'text-orange-600 bg-orange-50', logoBg: 'bg-orange-600 text-white', ring: 'ring-orange-500' },
+    gold: { label: 'Ambre', swatch: '#D97706', btnBg: 'bg-amber-500 hover:bg-amber-600 text-slate-950', pillBg: 'bg-amber-500 text-slate-950', priceText: 'text-amber-700 bg-amber-50', logoBg: 'bg-amber-400 text-slate-950', ring: 'ring-amber-500' },
+    emerald: { label: 'Vert', swatch: '#10B981', btnBg: 'bg-emerald-600 hover:bg-emerald-700 text-white', pillBg: 'bg-emerald-600 text-white', priceText: 'text-emerald-600 bg-emerald-50', logoBg: 'bg-emerald-600 text-white', ring: 'ring-emerald-500' },
+    crimson: { label: 'Corail', swatch: '#EF4444', btnBg: 'bg-rose-600 hover:bg-rose-700 text-white', pillBg: 'bg-rose-600 text-white', priceText: 'text-rose-600 bg-rose-50', logoBg: 'bg-rose-600 text-white', ring: 'ring-rose-500' },
     sunset: { label: 'Coucher de soleil', swatch: '#EA580C', btnBg: 'bg-orange-600 hover:bg-orange-700 text-white', pillBg: 'bg-orange-600 text-white', priceText: 'text-orange-600 bg-orange-50', logoBg: 'bg-orange-600 text-white', ring: 'ring-orange-500' },
     monochrome: { label: 'Monochrome', swatch: '#1E293B', btnBg: 'bg-slate-900 hover:bg-slate-800 text-white', pillBg: 'bg-slate-900 text-white', priceText: 'text-slate-900 bg-slate-100', logoBg: 'bg-slate-900 text-white', ring: 'ring-slate-800' }
 };
