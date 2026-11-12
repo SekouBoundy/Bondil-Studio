@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bondil-studio | Créez votre menu digital et catalogue QR Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                            700: '#3730a3',
+                            900: '#1e1b4b',
+                        },
+                        slateDark: '#2B2F38',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar hiding for sleek mobile previews */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Smooth phone card transitions */
+        .phone-mockup {
+            transition: all 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .phone-mockup:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+        .phone-featured {
+            transform: scale(1.06);
+            z-index: 20;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.28);
+        }
+        .phone-featured:hover {
+            transform: translateY(-8px) scale(1.08);
+        }
+        .phone-side {
+            opacity: 0.94;
+            box-shadow: 0 18px 36px -10px rgba(15, 23, 42, 0.16);
+        }
+        .phone-edge {
+            opacity: 0.65;
+            transform: scale(0.95);
+        }
+        .phone-edge:hover {
+            opacity: 0.95;
+            transform: translateY(-4px) scale(0.98);
+        }
+
+        @keyframes pulseSlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+        .animate-pulse-slow {
+            animation: pulseSlow 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-white text-[#2B2F38] font-sans antialiased selection:bg-indigo-100 selection:text-indigo-800">
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Bondil-studio -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-indigo-200 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-qrcode text-lg"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-extrabold tracking-tight text-slate-900">Bondil<span class="text-indigo-600">-studio</span></span>
+                        <span class="text-[10px] font-medium uppercase tracking-widest text-slate-400 -mt-1">Menus & Catalogues QR</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                    <a href="#clients-showcase" class="hover:text-indigo-600 transition-colors">Nos 20 Modèles</a>
+                    <a href="#fonctionnalites" class="hover:text-indigo-600 transition-colors">Fonctionnalités</a>
+                    <a href="#tarifs" class="hover:text-indigo-600 transition-colors">Tarifs</a>
+                    <button onclick="openCustomizerStudio(2)" class="hover:text-indigo-600 transition-colors flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        Studio Personnalisation
+                    </button>
+                </nav>
+
+                <!-- CTA Buttons -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <button onclick="showToast('Espace client : utilisez un compte démo ou créez votre carte gratuitement.')" class="px-4 py-2.5 text-sm font-semibold text-slate-700 hover:text-indigo-600 rounded-xl transition-colors">
+                        Se connecter
+                    </button>
+                    <a href="#tarifs" class="px-5 py-2.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm shadow-indigo-200 transition-all hover:shadow-md">
+                        Créer mon menu
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl text-slate-600 hover:bg-slate-100">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-4 pt-2 pb-6 space-y-3">
+            <a href="#clients-showcase" class="block py-2 text-base font-medium text-slate-700">Nos 20 Modèles</a>
+            <a href="#fonctionnalites" class="block py-2 text-base font-medium text-slate-700">Fonctionnalités</a>
+            <a href="#tarifs" class="block py-2 text-base font-medium text-slate-700">Tarifs</a>
+            <button onclick="openCustomizerStudio(2)" class="block w-full text-left py-2 text-base font-semibold text-indigo-600">Ouvrir le Studio de Personnalisation</button>
+            <div class="pt-3 flex flex-col gap-2">
+                <button onclick="showToast('Connexion au tableau de bord Bondil-studio')" class="w-full py-2.5 text-center font-semibold text-slate-700 border border-slate-200 rounded-xl">Se connecter</button>
+                <a href="#tarifs" class="w-full py-2.5 text-center font-semibold text-white bg-indigo-600 rounded-xl">Créer mon menu</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-slate-50/90 via-white to-white pt-12 pb-10 sm:pt-16 sm:pb-14">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs sm:text-sm font-semibold mb-6">
+                <i class="fa-solid fa-sparkles"></i>
+                <span>La solution n°1 de menus QR Code & catalogues digitaux</span>
+            </div>
+            
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#2B2F38] tracking-tight max-w-4xl mx-auto leading-[1.15]">
+                Digitalisez votre carte et séduisez vos clients avec <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Bondil-studio</span>
+            </h1>
+            
+            <p class="mt-5 text-base sm:text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+                Restaurants, pâtisseries, salons de beauté ou hôtels : créez un menu interactif multilingue accessible en un scan QR, sans application à télécharger.
+            </p>
+
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#clients-showcase" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm sm:text-base shadow-lg shadow-indigo-200 transition-all flex items-center justify-center gap-2">
+                    <span>Explorer les 20 modèles clients</span>
+                    <i class="fa-solid fa-arrow-down text-xs"></i>
+                </a>
+                <button onclick="openCustomizerStudio(3)" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-semibold text-sm sm:text-base transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles text-indigo-600"></i>
+                    <span>Personnaliser un modèle</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURED 20 CLIENT MENUS SHOWCASE ==================== -->
+    <section id="clients-showcase" class="py-12 sm:py-20 bg-white relative overflow-hidden">
+        <!-- Section Header in French -->
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center mb-10 sm:mb-14">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold mb-4">
+                <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                <span>20 modèles prêts à personnaliser sur Bondil-studio</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#2B2F38] tracking-tight leading-tight">
+                Découvrez les superbes menus de<br class="hidden sm:inline"> nos clients satisfaits
+            </h2>
+            <p class="mt-4 text-base sm:text-lg text-[#5A606D] font-normal max-w-2xl mx-auto">
+                Parcourez nos 20 modèles et cliquez sur celui qui vous plaît pour le modifier à votre image en temps réel
+            </p>
+
+            <!-- Quick Client Selector & Navigation Bar -->
+            <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+                <button onclick="shiftCarousel(-1)" aria-label="Menu précédent" class="w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:border-indigo-600 hover:text-indigo-600 flex items-center justify-center shadow-sm transition-all">
+                    <i class="fa-solid fa-chevron-left text-sm"></i>
+                </button>
+
+                <div class="relative">
+                    <select id="client-quick-select" onchange="setFeaturedClient(parseInt(this.value))" aria-label="Sélectionner un client"
+                        class="appearance-none bg-slate-50 border border-slate-200 text-slate-800 text-xs sm:text-sm font-semibold rounded-full pl-4 pr-10 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer">
+                        <!-- Populated via JS with all 20 clients -->
+                    </select>
+                    <i class="fa-solid fa-chevron-down text-[10px] text-slate-500 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                </div>
+
+                <button id="autoplay-toggle" onclick="toggleAutoplay()" aria-label="Lecture automatique"
+                    class="px-3.5 py-2 rounded-full text-xs font-semibold border border-slate-200 bg-white text-slate-600 hover:border-indigo-600 hover:text-indigo-600 flex items-center gap-1.5 shadow-sm transition-all">
+                    <i id="autoplay-icon" class="fa-solid fa-pause text-[10px] text-indigo-600"></i>
+                    <span id="autoplay-label">Défilement auto</span>
+                </button>
+
+                <button onclick="shiftCarousel(1)" aria-label="Menu suivant" class="w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:border-indigo-600 hover:text-indigo-600 flex items-center justify-center shadow-sm transition-all">
+                    <i class="fa-solid fa-chevron-right text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Horizontal Mobile Mockups Showcase (Swiper-style 5-phone viewport with touch swipe & drag) -->
+        <div class="relative max-w-[1480px] mx-auto px-2 sm:px-6"
+             onmouseenter="pauseAutoplayTemp()"
+             onmouseleave="resumeAutoplayTemp()">
+            <!-- Subtle edge fade gradients on wide screens -->
+            <div class="hidden xl:block pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent z-30"></div>
+            <div class="hidden xl:block pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent z-30"></div>
+
+            <div id="phones-container" class="flex items-center justify-center gap-4 sm:gap-6 lg:gap-7 py-6 overflow-x-auto no-scrollbar select-none">
+                <!-- 5 visible phone slides centered on active index rendered dynamically by JS -->
+            </div>
+        </div>
+
+        <!-- 20 Swiper-style Pagination Bullets -->
+        <div class="mt-6 px-4 flex flex-col items-center">
+            <div id="swiper-pagination-bullets" class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 max-w-xl" role="tablist" aria-label="Pagination des 20 menus clients">
+                <!-- 20 bullets generated by JS -->
+            </div>
+            <p id="active-slide-indicator" class="mt-3 text-xs font-medium text-slate-500">
+                Menu <span class="font-bold text-slate-800">5 / 20</span> — <span class="text-indigo-600 font-semibold">Gustelo</span>
+            </p>
+        </div>
+
+        <!-- Helper Caption -->
+        <div class="mt-5 text-center px-4">
+            <span class="inline-flex items-center gap-2 text-xs sm:text-sm text-slate-500 bg-slate-50 px-4 py-2 rounded-full border border-slate-200/80">
+                <i class="fa-solid fa-wand-magic-sparkles text-indigo-600"></i>
+                Cliquez sur un modèle mobile pour ouvrir le Studio de Personnalisation (nom, logo, couleurs, prix & QR Code) !
+            </span>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section id="fonctionnalites" class="py-16 sm:py-24 bg-slate-50 border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Tout-en-un & Intuitif</span>
+                <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-[#2B2F38]">Pourquoi choisir Bondil-studio ?</h2>
+                <p class="mt-3 text-slate-500 text-base sm:text-lg">
+                    Une plateforme pensée pour moderniser l'expérience de vos clients et augmenter votre panier moyen.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-7 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-5">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">QR Code Instantané</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Générez et téléchargez votre QR Code personnalisé prêt à imprimer pour vos tables, vitrines ou flyers.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-7 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-5">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Mise à jour en temps réel</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Modifiez vos prix, ajoutez un plat du jour ou masquez un produit épuisé en un clic, sans changer de QR Code.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-7 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mb-5">
+                        <i class="fa-solid fa-language"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Multilingue Automatique</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Accueillez vos clients internationaux : votre menu s'adapte instantanément en Français, Anglais, Espagnol ou Arabe.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white p-7 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-xl mb-5">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Zéro Téléchargement</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Compatible avec 100 % des smartphones iOS et Android directement depuis l'appareil photo et le navigateur.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PRICING / CTA SECTION ==================== -->
+    <section id="tarifs" class="py-16 sm:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Tarifs Transparents</span>
+                <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-[#2B2F38]">Des formules adaptées à votre établissement</h2>
+                <p class="mt-3 text-slate-500">Commencez gratuitement pendant 14 jours, sans engagement ni carte bancaire.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Plan Essentiel -->
+                <div class="rounded-2xl border border-slate-200 p-8 flex flex-col justify-between bg-white">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Essentiel</h3>
+                        <p class="text-sm text-slate-500 mt-1">Idéal pour démarrer rapidement</p>
+                        <div class="mt-6 flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold text-slate-900">0 €</span>
+                            <span class="text-sm text-slate-500">/ mois</span>
+                        </div>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-600">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> Jusqu'à 25 articles</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> QR Code personnalisé</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> Thèmes clair & sombre</li>
+                        </ul>
+                    </div>
+                    <button onclick="showToast('Création de votre compte Essentiel Bondil-studio !')" class="mt-8 w-full py-3 px-4 rounded-xl border border-slate-200 hover:border-indigo-600 hover:text-indigo-600 font-semibold text-sm transition-colors">
+                        Commencer gratuitement
+                    </button>
+                </div>
+
+                <!-- Plan Pro (Popular) -->
+                <div class="rounded-2xl border-2 border-indigo-600 p-8 flex flex-col justify-between bg-white shadow-xl shadow-indigo-100 relative">
+                    <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full">
+                        Le plus populaire
+                    </span>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Professionnel</h3>
+                        <p class="text-sm text-slate-500 mt-1">Pour restaurants, cafés & salons</p>
+                        <div class="mt-6 flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold text-slate-900">19 €</span>
+                            <span class="text-sm text-slate-500">/ mois</span>
+                        </div>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-600">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-600"></i> Articles & photos HD illimités</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-600"></i> Traduction multilingue (4 langues)</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-600"></i> Prise de commande à table & panier</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-indigo-600"></i> Statistiques de consultation</li>
+                        </ul>
+                    </div>
+                    <button onclick="showToast('Essai gratuit de 14 jours activé pour la formule Professionnel !')" class="mt-8 w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm shadow-md shadow-indigo-200 transition-all">
+                        Essayer 14 jours gratuitement
+                    </button>
+                </div>
+
+                <!-- Plan Multi-sites -->
+                <div class="rounded-2xl border border-slate-200 p-8 flex flex-col justify-between bg-white">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Entreprise</h3>
+                        <p class="text-sm text-slate-500 mt-1">Chaînes, hôtels & franchises</p>
+                        <div class="mt-6 flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold text-slate-900">49 €</span>
+                            <span class="text-sm text-slate-500">/ mois</span>
+                        </div>
+                        <ul class="mt-6 space-y-3 text-sm text-slate-600">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> Multi-établissements centralisés</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> Domaine personnalisé</li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-emerald-500"></i> Support prioritaire dédié 7j/7</li>
+                        </ul>
+                    </div>
+                    <button onclick="showToast('Un conseiller Bondil-studio vous recontactera sous 24h.')" class="mt-8 w-full py-3 px-4 rounded-xl border border-slate-200 hover:border-indigo-600 hover:text-indigo-600 font-semibold text-sm transition-colors">
+                        Contacter l'équipe
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Banner -->
+            <div class="mt-16 rounded-3xl bg-gradient-to-r from-[#172136] to-indigo-950 p-8 sm:p-12 text-white flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xl">
+                <div class="text-center lg:text-left max-w-xl">
+                    <h3 class="text-2xl sm:text-3xl font-bold">Prêt à digitaliser votre carte avec Bondil-studio ?</h3>
+                    <p class="mt-2 text-slate-300 text-sm sm:text-base">
+                        Rejoignez des centaines d'établissements qui offrent déjà une expérience digitale moderne et fluide à leurs clients.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                    <button onclick="openCustomizerStudio(2)" class="px-6 py-3.5 rounded-xl bg-white text-slate-900 font-semibold text-sm hover:bg-slate-100 transition-colors text-center">
+                        Personnaliser un modèle
+                    </button>
+                    <button onclick="showToast('Bienvenue sur Bondil-studio !')" class="px-6 py-3.5 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-semibold text-sm transition-colors text-center">
+                        Créer mon menu maintenant
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-slate-50 border-t border-slate-200/80 py-12 text-slate-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </div>
+                    <span class="text-lg font-extrabold text-slate-900">Bondil<span class="text-indigo-600">-studio</span></span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-6 text-sm">
+                    <a href="#clients-showcase" class="hover:text-indigo-600">Modèles Clients</a>
+                    <a href="#fonctionnalites" class="hover:text-indigo-600">Fonctionnalités</a>
+                    <a href="#tarifs" class="hover:text-indigo-600">Tarifs</a>
+                    <a href="#" onclick="event.preventDefault(); showToast('Mentions légales & Confidentialité RGPD')" class="hover:text-indigo-600">Confidentialité</a>
+                </div>
+                <p class="text-xs text-slate-400">
+                    © 2026 Bondil-studio. Tous droits réservés.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== STUDIO DE PERSONNALISATION Bondil-studio ==================== -->
+    <div id="studio-modal" class="fixed inset-0 z-50 hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 lg:p-6">
+        <div class="bg-white rounded-3xl max-w-6xl w-full max-h-[95vh] overflow-hidden shadow-2xl flex flex-col lg:flex-row border border-slate-200">
+            
+            <!-- LEFT COLUMN: Live Interactive Mobile Phone Preview -->
+            <div class="lg:w-[410px] bg-gradient-to-b from-slate-100 to-slate-200/70 p-4 sm:p-6 flex flex-col items-center justify-between border-b lg:border-b-0 lg:border-r border-slate-200 shrink-0">
+                <div class="w-full flex items-center justify-between mb-2">
+                    <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-white px-3 py-1.5 rounded-full shadow-xs border border-slate-200/70">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Aperçu mobile en direct
+                    </span>
+                    <button onclick="resetCustomTemplate()" title="Réinitialiser ce modèle" class="text-xs font-semibold text-slate-500 hover:text-indigo-600 flex items-center gap-1 px-2.5 py-1 rounded-lg hover:bg-white transition-colors">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span>Réinitialiser</span>
+                    </button>
+                </div>
+
+                <!-- Realistic Mobile Frame -->
+                <div id="studio-phone-shell" class="w-full max-w-[325px] h-[595px] max-h-[68vh] lg:max-h-[73vh] rounded-[36px] border-[7px] border-slate-900 shadow-2xl overflow-hidden flex flex-col relative bg-white transition-colors duration-300">
+                    <!-- Dynamic Phone UI rendered by JS -->
+                </div>
+
+                <!-- Simulated Customer Cart Summary Pill -->
+                <div class="w-full max-w-[325px] mt-3 bg-white rounded-2xl px-3.5 py-2.5 border border-slate-200/90 flex items-center justify-between shadow-xs">
+                    <div class="flex items-center gap-2 text-xs">
+                        <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-slate-800 block leading-none" id="studio-cart-count">0 article testé</span>
+                            <span class="text-[10px] text-slate-400">Cliquez sur « + » dans l'écran</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="studio-cart-total" class="text-xs font-extrabold text-slate-900">0,00 €</span>
+                        <button onclick="clearStudioCart()" id="studio-cart-clear" class="hidden text-[10px] text-rose-500 hover:underline font-semibold">Vider</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Complete Customization Controls -->
+            <div class="flex-1 flex flex-col overflow-hidden bg-white">
+                <!-- Studio Top Header -->
+                <div class="px-5 sm:px-8 py-4 sm:py-5 border-b border-slate-100 flex items-center justify-between gap-4 bg-white">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-[11px] font-bold">
+                                Studio de Personnalisation Bondil-studio
+                            </span>
+                            <span class="text-xs text-slate-400 hidden sm:inline">Modèle #<span id="studio-base-number">1</span></span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">
+                            Personnalisez votre menu : <span id="studio-header-name" class="text-indigo-600">Wagamama</span>
+                        </h3>
+                    </div>
+                    <button onclick="closeCustomizerStudio()" aria-label="Fermer le studio" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors shrink-0">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Studio Navigation Tabs -->
+                <div class="px-5 sm:px-8 pt-3 bg-slate-50/70 border-b border-slate-200/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                    <button onclick="switchStudioTab('identity')" id="studio-tab-identity" class="studio-tab px-4 py-2.5 text-xs sm:text-sm font-bold rounded-t-xl border-b-2 border-indigo-600 text-indigo-600 bg-white flex items-center gap-2 shrink-0">
+                        <i class="fa-solid fa-store"></i>
+                        <span>1. Identité & Devise</span>
+                    </button>
+                    <button onclick="switchStudioTab('design')" id="studio-tab-design" class="studio-tab px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 shrink-0">
+                        <i class="fa-solid fa-palette"></i>
+                        <span>2. Thème & Couleurs</span>
+                    </button>
+                    <button onclick="switchStudioTab('items')" id="studio-tab-items" class="studio-tab px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 shrink-0">
+                        <i class="fa-solid fa-utensils"></i>
+                        <span>3. Plats & Prix (<span id="studio-items-badge">3</span>)</span>
+                    </button>
+                    <button onclick="switchStudioTab('publish')" id="studio-tab-publish" class="studio-tab px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 shrink-0">
+                        <i class="fa-solid fa-qrcode"></i>
+                        <span>4. Lien & QR Code</span>
+                    </button>
+                </div>
+
+                <!-- Studio Tab Panels Container -->
+                <div class="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6">
+
+                    <!-- TAB 1: IDENTITÉ & DEVISE -->
+                    <div id="panel-identity" class="space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Nom de votre établissement</label>
+                                <input type="text" id="input-brand-name" oninput="updateCustomField('name', this.value)"
+                                    placeholder="Ex: Le Bistrot de Paris"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Devise affichée</label>
+                                <select id="input-brand-currency" onchange="updateCustomField('currency', this.value)"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="€">Euro (€)</option>
+                                    <option value="FCFA">Franc CFA (FCFA)</option>
+                                    <option value="$">Dollar ($)</option>
+                                    <option value="AED">Dirham (AED)</option>
+                                    <option value="£">Livre Sterling (£)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Slogan ou spécialité</label>
+                            <input type="text" id="input-brand-sector" oninput="updateCustomField('sector', this.value)"
+                                placeholder="Ex: Cuisine maison & produits frais"
+                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <!-- Logo Icon Picker -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Icône du logo</label>
+                            <div id="logo-icon-picker" class="grid grid-cols-5 sm:grid-cols-10 gap-2">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Quick Base Template Switcher -->
+                        <div class="pt-3 border-t border-slate-100">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Changer de modèle de base (20 disponibles) :</label>
+                            <div id="studio-template-switcher" class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 max-h-36 overflow-y-auto pr-1">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: THÈME & COULEURS -->
+                    <div id="panel-design" class="hidden space-y-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">Mode d'affichage du menu</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="setCustomThemeMode('light')" id="btn-mode-light"
+                                    class="p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/40 text-left flex items-center gap-3 transition-all">
+                                    <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 text-amber-500 flex items-center justify-center text-lg shadow-xs">
+                                        <i class="fa-solid fa-sun"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-sm font-bold text-slate-900 block">Mode Clair</span>
+                                        <span class="text-xs text-slate-500">Lumineux & épuré</span>
+                                    </div>
+                                </button>
+                                <button onclick="setCustomThemeMode('dark')" id="btn-mode-dark"
+                                    class="p-4 rounded-2xl border-2 border-slate-200 bg-white text-left flex items-center gap-3 transition-all">
+                                    <div class="w-10 h-10 rounded-xl bg-slate-900 text-indigo-400 flex items-center justify-center text-lg shadow-xs">
+                                        <i class="fa-solid fa-moon"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-sm font-bold text-slate-900 block">Mode Sombre</span>
+                                        <span class="text-xs text-slate-500">Élégant & lounge</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">Couleur principale d'accent</label>
+                            <div id="accent-palette-picker" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">Style des cartes produits</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="setCustomCardStyle('rounded')" id="btn-card-rounded"
+                                    class="px-4 py-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/40 text-xs font-bold text-slate-900 flex items-center justify-center gap-2">
+                                    <i class="fa-regular fa-square"></i>
+                                    <span>Cartes arrondies modernes</span>
+                                </button>
+                                <button onclick="setCustomCardStyle('compact')" id="btn-card-compact"
+                                    class="px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-700 flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-list"></i>
+                                    <span>Liste compacte horizontale</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: PLATS & PRIX -->
+                    <div id="panel-items" class="hidden space-y-5">
+                        <!-- Add New Item Form -->
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
+                            <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+                                <i class="fa-solid fa-plus-circle text-indigo-600"></i>
+                                <span>Ajouter un nouvel article au menu</span>
+                            </h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                                <input type="text" id="new-item-name" placeholder="Nom du plat / service"
+                                    class="px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <input type="text" id="new-item-category" placeholder="Catégorie (ex: Plats)"
+                                    class="px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <input type="number" step="0.01" id="new-item-price" placeholder="Prix (ex: 14.50)"
+                                    class="px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-2.5">
+                                <input type="text" id="new-item-desc" placeholder="Description courte des ingrédients ou détails..."
+                                    class="flex-1 px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <button onclick="addNewCustomItem()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shrink-0 transition-colors">
+                                    + Ajouter au menu
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Existing Items List Editor -->
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">Articles actuels (modifiez en direct) :</h4>
+                            <div id="studio-items-editor-list" class="space-y-3">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: LIEN & QR CODE Bondil-studio -->
+                    <div id="panel-publish" class="hidden space-y-5">
+                        <div class="p-5 rounded-2xl bg-gradient-to-br from-indigo-50 via-white to-violet-50 border border-indigo-100 flex flex-col sm:flex-row items-center gap-6">
+                            <!-- Generated Crisp SVG QR Code -->
+                            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col items-center shrink-0">
+                                <div id="generated-qr-svg" class="w-32 h-32 flex items-center justify-center">
+                                    <!-- SVG QR Code injected via JS -->
+                                </div>
+                                <span class="mt-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Scan Table QR</span>
+                            </div>
+
+                            <div class="flex-1 text-center sm:text-left space-y-3 min-w-0 w-full">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold">
+                                    <i class="fa-solid fa-check-circle"></i> Prêt pour impression & partage
+                                </span>
+                                <h4 class="text-lg font-extrabold text-slate-900">Votre lien Bondil-studio personnalisé</h4>
+                                <p class="text-xs text-slate-500">
+                                    Vos clients accèdent immédiatement à votre carte personnalisée en scannant ce QR Code ou via votre lien dédié :
+                                </p>
+                                <div class="flex items-center gap-2 bg-white border border-slate-200 rounded-xl p-2">
+                                    <input type="text" id="custom-bondil-url" readonly
+                                        class="flex-1 bg-transparent text-xs font-bold text-indigo-700 focus:outline-none px-2 truncate">
+                                    <button onclick="copyCustomBondilUrl()" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shrink-0 transition-colors">
+                                        Copier
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Published Confirmation Banner -->
+                        <div id="publish-success-banner" class="hidden p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-lg shrink-0">
+                                <i class="fa-solid fa-rocket"></i>
+                            </div>
+                            <div class="text-xs">
+                                <strong class="text-sm block">Félicitations ! Votre menu Bondil-studio est publié.</strong>
+                                Vos modifications sont sauvegardées et prêtes à être affichées sur vos tables.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Studio Bottom Action Footer -->
+                <div class="px-5 sm:px-8 py-4 border-t border-slate-100 bg-slate-50/70 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div class="text-xs text-slate-500 text-center sm:text-left">
+                        <strong class="text-slate-800">100 % personnalisable</strong> — Modifiez vos plats, prix et couleurs à tout moment.
+                    </div>
+                    <div class="flex items-center gap-2.5 w-full sm:w-auto">
+                        <button onclick="switchStudioTab('publish')" class="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 font-semibold text-xs sm:text-sm transition-colors">
+                            <i class="fa-solid fa-qrcode mr-1.5 text-indigo-600"></i>Voir QR Code
+                        </button>
+                        <button onclick="publishCustomMenu()" class="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm shadow-md shadow-indigo-200 transition-all">
+                            Publier mon menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-sm font-medium border border-slate-700">
+            <i class="fa-solid fa-circle-check text-emerald-400"></i>
+            <span id="toast-message">Action effectuée</span>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // 20 self-contained client templates for Bondil-studio (zero external instalacarte links)
+        const clientsData = [
+            {
+                id: 'wagamama',
+                name: 'Wagamama',
+                sector: 'Cuisine Asiatique & Ramen',
+                themeMode: 'dark',
+                accent: 'crimson',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-bowl-rice',
+                currency: '€',
+                items: [
+                    { name: 'CHICKEN KATSU CURRY', nameEn: 'CHICKEN KATSU CURRY', category: 'Plats', price: 15.95, available: true, desc: 'Poulet pané croustillant, sauce curry parfumée et riz gluant', img: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'CHILLI SQUID', nameEn: 'CHILLI SQUID', category: 'Entrées', price: 9.75, available: true, desc: 'Calamars croustillants assaisonnés au shichimi et coriandre', img: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'YAKI SOBA NOUILLES', nameEn: 'YAKI SOBA', category: 'Nouilles', price: 14.50, available: true, desc: 'Nouilles teppanyaki sautées au poulet, crevettes et légumes croquants', img: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'glamours-touch',
+                name: 'Glamours Touch',
+                sector: 'Salon de Beauté & Spa',
+                themeMode: 'light',
+                accent: 'gold',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-spa',
+                currency: '€',
+                items: [
+                    { name: 'SOINS CAPILLAIRES', nameEn: 'HAIR SERVICES', category: 'Coiffure', price: 45.00, available: true, desc: 'Coupe, brushing et soins profonds sur mesure', img: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'COLORATION & BALAYAGE', nameEn: 'HAIR COLOR', category: 'Coiffure', price: 75.00, available: true, desc: 'Prestations expertes de coloration lumineuse', img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'MANUCURE & SOIN ONGLES', nameEn: 'NAIL CARE', category: 'Onglerie', price: 35.00, available: true, desc: 'Manucure complète et pose vernis semi-permanent', img: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'baked-potato',
+                name: 'The Baked Potato Factory',
+                sector: 'Restaurant & Street-Food',
+                themeMode: 'dark',
+                accent: 'indigo',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-fire-flame-curved',
+                currency: '€',
+                items: [
+                    { name: "PAW PAW'S TATER", nameEn: "PAW PAW'S TATER", category: 'Spécialités', price: 11.99, available: true, desc: 'Pomme de terre au four, cheddar affiné, bacon croustillant et crème', img: 'https://images.unsplash.com/photo-1568569350062-ebfa3cb195df?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'THE TEXAS WAY', nameEn: 'THE TEXAS WAY', category: 'Spécialités', price: 13.99, available: true, desc: 'Effiloché de bœuf fumé BBQ, cheddar fondu et ciboulette', img: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'STUFF YOUR OWN', nameEn: 'STUFF YOUR OWN', category: 'À composer', price: 4.00, available: true, desc: 'Pomme de terre dorée au four à composer selon vos envies', img: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'european-bakery',
+                name: 'European Bakery',
+                sector: 'Pâtisserie & Boulangerie',
+                themeMode: 'dark',
+                accent: 'gold',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-cake-candles',
+                currency: '€',
+                items: [
+                    { name: 'Red Velvet Cake', nameEn: 'Red velvet Cake', category: 'Gâteaux', price: 42.00, available: true, desc: 'Génoise velours rouge et glaçage crémeux au fromage frais', img: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'Cheesecake Myrtille', nameEn: 'Blueberry cheesecake', category: 'Gâteaux', price: 45.00, available: true, desc: 'Cheesecake onctueux sur biscuit sablé et coulis de myrtilles', img: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'Forêt-Noire', nameEn: 'Black Forest Cake', category: 'Signature', price: 40.00, available: true, desc: 'Biscuit chocolat intense, chantilly légère et griottes', img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'gustelo',
+                name: 'Gustelo',
+                sector: 'Grill & Cuisine Mexicaine',
+                themeMode: 'light',
+                accent: 'sunset',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-pepper-hot',
+                currency: '€',
+                items: [
+                    { name: 'FAJITAS POULET GRILLÉ', nameEn: 'GRILLED CHICKEN FAJITAS', category: 'Tex-Mex', price: 15.50, available: true, desc: 'Émincé de poulet mariné, poivrons grillés, guacamole et tortillas', img: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'ENTRECÔTE GRILLÉE', nameEn: 'RIBEYE STEAK', category: 'Grillades', price: 21.90, available: true, desc: 'Pièce de bœuf maturée, sauce chimichurri et pommes rôties', img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'janan-restaurant',
+                name: 'Janan Restaurant',
+                sector: 'Cuisine Orientale & Boissons',
+                themeMode: 'dark',
+                accent: 'emerald',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-martini-glass-citrus',
+                currency: '€',
+                items: [
+                    { name: 'COCKTAIL MENTHE CITRON', nameEn: 'MINT LEMONADE', category: 'Boissons', price: 6.50, available: true, desc: 'Citrons pressés minute, feuilles de menthe fraîche et glace pilée', img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'MEZZÉS ROYAUX À PARTAGER', nameEn: 'ROYAL MEZZE', category: 'Entrées', price: 16.00, available: true, desc: 'Houmous, moutabal, taboulé libanais et falafels croustillants', img: 'https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'maritxu',
+                name: 'Maritxu',
+                sector: 'Tapas & Gastronomie Basque',
+                themeMode: 'light',
+                accent: 'crimson',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-wine-glass',
+                currency: '€',
+                items: [
+                    { name: 'ASSORTIMENT DE PINTXOS', nameEn: 'PINTXOS SELECTION', category: 'Tapas', price: 12.50, available: true, desc: 'Sélection de 4 pintxos du chef au jambon ibérique et fromage de brebis', img: 'https://images.unsplash.com/photo-1515443961218-a51367888e4b?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'GÂTEAU BASQUE À LA CRÈME', nameEn: 'BASQUE CAKE', category: 'Desserts', price: 7.00, available: true, desc: 'Recette artisanale dorée au four et crème pâtissière vanillée', img: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'new-lucky-star',
+                name: 'New Lucky Star',
+                sector: 'Cuisine Chinoise & Wok',
+                themeMode: 'light',
+                accent: 'sunset',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-star',
+                currency: '€',
+                items: [
+                    { name: 'CANARD LAQUÉ PÉKINOIS', nameEn: 'PEKING DUCK', category: 'Plats', price: 19.50, available: true, desc: 'Filets de canard laqué croustillant, crêpes fines et sauce hoisin', img: 'https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'DIM SUM VAPEUR (8 PCS)', nameEn: 'STEAMED DIM SUM', category: 'Vapeur', price: 11.50, available: true, desc: 'Raviolis crevettes, porc et légumes cuits au panier bambou', img: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'swiety-michal',
+                name: 'Swiety Michal',
+                sector: 'Bistrot Européen & Tradition',
+                themeMode: 'light',
+                accent: 'monochrome',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-utensils',
+                currency: '€',
+                items: [
+                    { name: 'PIEROGI MAISON DORÉS', nameEn: 'HOMEMADE PIEROGI', category: 'Tradition', price: 13.00, available: true, desc: 'Raviolis traditionnels farcis fromage frais et pommes de terre', img: 'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'GOULASH DE BŒUF MIJOTÉ', nameEn: 'BEEF GOULASH', category: 'Plats', price: 16.50, available: true, desc: 'Mijoté lentement aux épices douces, accompagné de galettes', img: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'pump-penang',
+                name: 'Pump Penang Automall',
+                sector: 'Café Lounge & Fusion',
+                themeMode: 'dark',
+                accent: 'gold',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-mug-hot',
+                currency: '€',
+                items: [
+                    { name: 'BURGER SIGNATURE AUTOMALL', nameEn: 'SIGNATURE BURGER', category: 'Burgers', price: 14.90, available: true, desc: 'Pain brioché toasté, steak haché frais, cheddar affiné et frites', img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'ICED CARAMEL LATTE', nameEn: 'ICED CARAMEL LATTE', category: 'Cafés', price: 5.50, available: true, desc: 'Double expresso arabica, lait frais et caramel beurre salé', img: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'sisi-hai-xian',
+                name: 'Sisi Hai Xian',
+                sector: 'Fruits de Mer & Spécialités',
+                themeMode: 'light',
+                accent: 'emerald',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-fish',
+                currency: '€',
+                items: [
+                    { name: 'PLATEAU FRUITS EXOTIQUES', nameEn: 'EXOTIC FRUIT PLATTER', category: 'Fraîcheur', price: 12.00, available: true, desc: 'Mangue fraîche, fruit du dragon, pastèque et litchis', img: 'https://images.unsplash.com/photo-1519996529931-28324d5a630e?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'GAMBAS SAUTÉES À L’AIL', nameEn: 'GARLIC PRAWNS', category: 'Mer', price: 18.50, available: true, desc: 'Crevettes royales saisies au wok avec ail croustillant et ciboulette', img: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'chocolanche',
+                name: 'Chocolanche',
+                sector: 'Chocolaterie & Desserts Gourmands',
+                themeMode: 'light',
+                accent: 'gold',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-cookie-bite',
+                currency: '€',
+                items: [
+                    { name: 'GAUFRE BELGE TRIPLE CHOCOLAT', nameEn: 'TRIPLE CHOC WAFFLE', category: 'Gaufres', price: 9.50, available: true, desc: 'Gaufre croustillante nappée de chocolat noir, lait et blanc fondu', img: 'https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'FONDANT COULANT GRAND CRU', nameEn: 'MOLTEN LAVA CAKE', category: 'Desserts', price: 8.90, available: true, desc: 'Cœur coulant chocolat 72 % et boule de glace vanille', img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'ground-coffee-batroun',
+                name: 'Ground Coffee Batroun',
+                sector: 'Coffee Shop & Brunch',
+                themeMode: 'light',
+                accent: 'monochrome',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-mug-saucer',
+                currency: '€',
+                items: [
+                    { name: 'FLAT WHITE SPÉCIALITÉ', nameEn: 'SPECIALTY FLAT WHITE', category: 'Cafés', price: 4.50, available: true, desc: 'Torréfaction artisanale, micro-mousse veloutée', img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'AVOCADO TOAST & ŒUF POCHÉ', nameEn: 'AVOCADO TOAST', category: 'Brunch', price: 11.50, available: true, desc: 'Pain au levain grillé, avocat frais, graines et œuf fermier', img: 'https://images.unsplash.com/photo-1525351484163-7529414342d8?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'zero-pub',
+                name: 'Zero Pub',
+                sector: 'Pub, Burgers & Cocktails',
+                themeMode: 'dark',
+                accent: 'indigo',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-beer-mug-empty',
+                currency: '€',
+                items: [
+                    { name: 'DOUBLE SMASH BACON BURGER', nameEn: 'DOUBLE SMASH BURGER', category: 'Burgers', price: 15.00, available: true, desc: 'Double steak smashé, bacon fumé, cheddar et sauce secrète', img: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'PLANCHE APÉRO ZERO PUB', nameEn: 'PUB SHARING BOARD', category: 'À partager', price: 17.50, available: true, desc: 'Onion rings, tenders croustillants, sticks mozzarella et sauces', img: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'bar-ansleep',
+                name: 'Bar Ansleep',
+                sector: 'Bar à Cocktails & Tapas',
+                themeMode: 'dark',
+                accent: 'crimson',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-martini-glass',
+                currency: '€',
+                items: [
+                    { name: 'COCKTAIL SIGNATURE ANSLEEP', nameEn: 'ANSLEEP SIGNATURE', category: 'Cocktails', price: 11.00, available: true, desc: 'Création maison fruitée aux notes d’agrumes et hibiscus', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'BRUSCHETTA TRUFFE & PARMESAN', nameEn: 'TRUFFLE BRUSCHETTA', category: 'Tapas', price: 9.50, available: true, desc: 'Pain ciabatta grillé, crème de truffe noire et copeaux de parmesan', img: 'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'cafe-victoria',
+                name: 'Cafe Victoria',
+                sector: 'Salon de Thé & Pâtisserie',
+                themeMode: 'light',
+                accent: 'crimson',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-crown',
+                currency: '€',
+                items: [
+                    { name: 'AFTERNOON TEA VICTORIA', nameEn: 'VICTORIA HIGH TEA', category: 'Formules', price: 24.00, available: true, desc: 'Assortiment de scones, mignardises, finger sandwiches et thé bio', img: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'CROISSANT PISTACHE FRAMBOISE', nameEn: 'PISTACHIO CROISSANT', category: 'Viennoiserie', price: 4.80, available: true, desc: 'Croissant artisanal fourré au praliné pistache et framboises', img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'pan-hmelu',
+                name: 'Pan Hmelu',
+                sector: 'Brasserie Artisanale & Grill',
+                themeMode: 'light',
+                accent: 'sunset',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-wheat-awn',
+                currency: '€',
+                items: [
+                    { name: 'TRAVERS DE PORC CARAMÉLISÉS', nameEn: 'GLAZED PORK RIBS', category: 'Grill', price: 18.90, available: true, desc: 'Cuisson basse température, glaçage miel-bière artisanale', img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'BRETZEL CHAUD & SAUCE CHEDDAR', nameEn: 'WARM PRETZEL', category: 'Snacks', price: 7.50, available: true, desc: 'Bretzel moelleux doré au four avec dip fromage fondant', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'sarnic',
+                name: 'Sarnic',
+                sector: 'Cuisine Méditerranéenne & Grill',
+                themeMode: 'light',
+                accent: 'emerald',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-fire',
+                currency: '€',
+                items: [
+                    { name: 'BROCHETTES D’AGNEAU AU FEU DE BOIS', nameEn: 'LAMB SKEWERS', category: 'Grillades', price: 19.50, available: true, desc: 'Viande d’agneau marinée aux herbes, riz pilaf et légumes grillés', img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'BAKLAVA PISTACHE & MIEL', nameEn: 'PISTACHIO BAKLAVA', category: 'Desserts', price: 6.90, available: true, desc: 'Pâte filo croustillante, pistaches d’Antep et sirop léger', img: 'https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'morpho-yu-hua',
+                name: 'Morpho Yu Hua',
+                sector: 'Gastronomie Asiatique Moderne',
+                themeMode: 'light',
+                accent: 'indigo',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-leaf',
+                currency: '€',
+                items: [
+                    { name: 'BŒUF SAUTÉ AU POIVRE NOIR', nameEn: 'BLACK PEPPER BEEF', category: 'Plats', price: 17.50, available: true, desc: 'Émincé de filet de bœuf tendre, poivrons croquants et riz jasmin', img: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'THÉ FLEUR DE JASMIN GLACÉ', nameEn: 'ICED JASMINE TEA', category: 'Boissons', price: 5.20, available: true, desc: 'Infusion florale délicate, perles de fruits et citron vert', img: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=500&q=80' }
+                ]
+            },
+            {
+                id: 'rose-cakes',
+                name: 'Rose Cakes',
+                sector: 'Cake Design & Pâtisserie Fine',
+                themeMode: 'light',
+                accent: 'crimson',
+                cardStyle: 'rounded',
+                logoIcon: 'fa-cake-candles',
+                currency: '€',
+                items: [
+                    { name: 'LAYER CAKE ROSE & FRAMBOISE', nameEn: 'ROSE RASPBERRY CAKE', category: 'Gâteaux', price: 48.00, available: true, desc: 'Gâteau à étages parfumé à l’eau de rose, crème mascarpone et framboises', img: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=500&q=80' },
+                    { name: 'COFFRET CUPCAKES FLEURIS (6 PCS)', nameEn: 'FLORAL CUPCAKES BOX', category: 'Cupcakes', price: 22.00, available: true, desc: 'Assortiment vanille, chocolat et fraise décorés à la main', img: 'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=500&q=80' }
+                ]
+            }
+        ];
+
+        // Theme & Color Accent Presets
+        const accentPalettes = {
+            indigo: { label: 'Indigo', swatch: '#4F46E5', btnBg: 'bg-indigo-600 hover:bg-indigo-700 text-white', pillBg: 'bg-indigo-600 text-white', priceText: 'text-indigo-600 bg-indigo-50', logoBg: 'bg-indigo-600 text-white', ring: 'ring-indigo-500' },
+            gold: { label: 'Or & Ambre', swatch: '#D97706', btnBg: 'bg-amber-500 hover:bg-amber-600 text-slate-950', pillBg: 'bg-amber-500 text-slate-950', priceText: 'text-amber-700 bg-amber-50', logoBg: 'bg-amber-400 text-slate-950', ring: 'ring-amber-500' },
+            emerald: { label: 'Émeraude', swatch: '#059669', btnBg: 'bg-emerald-600 hover:bg-emerald-700 text-white', pillBg: 'bg-emerald-600 text-white', priceText: 'text-emerald-700 bg-emerald-50', logoBg: 'bg-emerald-600 text-white', ring: 'ring-emerald-500' },
+            crimson: { label: 'Carmin', swatch: '#E11D48', btnBg: 'bg-rose-600 hover:bg-rose-700 text-white', pillBg: 'bg-rose-600 text-white', priceText: 'text-rose-600 bg-rose-50', logoBg: 'bg-rose-600 text-white', ring: 'ring-rose-500' },
+            sunset: { label: 'Coucher de soleil', swatch: '#EA580C', btnBg: 'bg-orange-600 hover:bg-orange-700 text-white', pillBg: 'bg-orange-600 text-white', priceText: 'text-orange-600 bg-orange-50', logoBg: 'bg-orange-600 text-white', ring: 'ring-orange-500' },
+            monochrome: { label: 'Monochrome', swatch: '#1E293B', btnBg: 'bg-slate-900 hover:bg-slate-800 text-white', pillBg: 'bg-slate-900 text-white', priceText: 'text-slate-900 bg-slate-100', logoBg: 'bg-slate-900 text-white', ring: 'ring-slate-800' }
+        };
+
+        const logoIconsList = [
+            'fa-utensils', 'fa-burger', 'fa-pizza-slice', 'fa-mug-hot', 'fa-cake-candles',
+            'fa-wine-glass', 'fa-spa', 'fa-fish', 'fa-pepper-hot', 'fa-crown'
+        ];
+
+        // State management
+        let featuredIndex = 4; // Starts centered on Gustelo
+        let autoplayEnabled = true;
+        let autoplayPausedTemp = false;
+        let autoplayInterval = null;
+
+        // Studio Customizer State
+        let studioBaseIndex = 0;
+        let customState = null;
+        let studioSelectedCategory = 'Tout';
+        let studioLang = 'fr';
+        let studioCart = [];
+
+        function formatPrice(value, currency) {
+            const num = Number(value) || 0;
+            if (currency === 'FCFA') {
+                return `${Math.round(num * 655)} FCFA`;
+            }
+            return `${num.toFixed(2).replace('.', ',')} ${currency}`;
+        }
+
+        function slugify(text) {
+            return (text || 'mon-etablissement')
+                .toString()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/(^-|-$)+/g, '') || 'mon-etablissement';
+        }
+
+        // Populate Quick Client Select Dropdown
+        function initClientDropdown() {
+            const select = document.getElementById('client-quick-select');
+            select.innerHTML = clientsData.map((client, idx) => `
+                <option value="${idx}">${idx + 1}. ${client.name} (${client.sector})</option>
+            `).join('');
+            select.value = featuredIndex;
+        }
+
+        // Render 20 Swiper-style Pagination Bullets
+        function renderPaginationBullets() {
+            const container = document.getElementById('swiper-pagination-bullets');
+            container.innerHTML = clientsData.map((client, idx) => {
+                const isActive = idx === featuredIndex;
+                return `
+                    <button onclick="setFeaturedClient(${idx})"
+                        role="tab"
+                        aria-selected="${isActive}"
+                        aria-label="Aller au modèle ${idx + 1} : ${client.name}"
+                        title="${idx + 1}. ${client.name}"
+                        class="h-2.5 rounded-full transition-all duration-300 focus:outline-none ${
+                            isActive 
+                            ? 'w-7 bg-indigo-600 shadow-sm' 
+                            : 'w-2.5 bg-slate-300 hover:bg-slate-400'
+                        }">
+                    </button>
+                `;
+            }).join('');
+
+            const activeClient = clientsData[featuredIndex];
+            document.getElementById('active-slide-indicator').innerHTML = `
+                Modèle <span class="font-bold text-slate-800">${featuredIndex + 1} / ${clientsData.length}</span> — 
+                <span class="text-indigo-600 font-semibold">${activeClient.name}</span> 
+                <span class="text-slate-400">(${activeClient.sector})</span>
+            `;
+            document.getElementById('client-quick-select').value = featuredIndex;
+        }
+
+        function shiftCarousel(direction) {
+            const total = clientsData.length;
+            featuredIndex = (featuredIndex + direction + total) % total;
+            renderPaginationBullets();
+            renderPhonesShowcase();
+        }
+
+        function setFeaturedClient(index) {
+            featuredIndex = index;
+            renderPaginationBullets();
+            renderPhonesShowcase();
+        }
+
+        function startAutoplay() {
+            stopAutoplay();
+            autoplayInterval = setInterval(() => {
+                if (autoplayEnabled && !autoplayPausedTemp && document.getElementById('studio-modal').classList.contains('hidden')) {
+                    shiftCarousel(1);
+                }
+            }, 3400);
+        }
+
+        function stopAutoplay() {
+            if (autoplayInterval) clearInterval(autoplayInterval);
+        }
+
+        function toggleAutoplay() {
+            autoplayEnabled = !autoplayEnabled;
+            const icon = document.getElementById('autoplay-icon');
+            const label = document.getElementById('autoplay-label');
+            if (autoplayEnabled) {
+                icon.className = 'fa-solid fa-pause text-[10px] text-indigo-600';
+                label.textContent = 'Défilement auto';
+            } else {
+                icon.className = 'fa-solid fa-play text-[10px] text-slate-500';
+                label.textContent = 'En pause';
+            }
+        }
+
+        function pauseAutoplayTemp() {
+            autoplayPausedTemp = true;
+        }
+
+        function resumeAutoplayTemp() {
+            autoplayPausedTemp = false;
+        }
+
+        function getOrderedClients() {
+            const total = clientsData.length;
+            const offsets = [-2, -1, 0, 1, 2];
+            return offsets.map(offset => {
+                const idx = (featuredIndex + offset + total) % total;
+                return { client: clientsData[idx], offset, originalIndex: idx };
+            });
+        }
+
+        // Render self-contained simulated mobile menu UI cards in the carousel
+        function renderPhonesShowcase() {
+            const container = document.getElementById('phones-container');
+            const ordered = getOrderedClients();
+
+            container.innerHTML = ordered.map(({ client, offset, originalIndex }) => {
+                const isCenter = offset === 0;
+                const isEdge = Math.abs(offset) === 2;
+                const isDark = client.themeMode === 'dark';
+                const palette = accentPalettes[client.accent] || accentPalettes.indigo;
+
+                let positionClasses = 'phone-side w-[245px] sm:w-[265px] h-[535px]';
+                if (isCenter) {
+                    positionClasses = 'phone-featured w-[275px] sm:w-[295px] h-[585px] ring-2 ring-indigo-500/25';
+                } else if (isEdge) {
+                    positionClasses = 'phone-edge hidden xl:flex w-[225px] h-[500px]';
+                }
+
+                const shellBg = isDark ? 'bg-slate-950 text-white border-slate-800' : 'bg-[#F8FAFC] text-slate-900 border-slate-200/90';
+                const headerBg = isDark ? 'bg-slate-900 border-b border-slate-800' : 'bg-white border-b border-slate-100';
+                const cardSurface = isDark ? 'bg-slate-900 border border-slate-800 text-white' : 'bg-white border border-slate-100 text-slate-900 shadow-xs';
+                const categories = ['Tout', ...new Set(client.items.map(i => i.category))];
+
+                return `
+                    <div onclick="openCustomizerStudio(${originalIndex})"
+                        role="button"
+                        tabindex="0"
+                        aria-label="Personnaliser le modèle ${client.name}"
+                        class="phone-mockup group shrink-0 rounded-[30px] overflow-hidden cursor-pointer flex flex-col border relative ${shellBg} ${positionClasses}">
+                        
+                        <!-- Mobile Notch -->
+                        <div class="${headerBg} pt-2 pb-1 flex justify-center shrink-0">
+                            <div class="w-16 h-3 rounded-full ${isDark ? 'bg-slate-800' : 'bg-slate-200'}"></div>
+                        </div>
+
+                        <!-- Simulated App Header -->
+                        <div class="${headerBg} px-3.5 py-2.5 shrink-0">
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs shrink-0 ${palette.logoBg}">
+                                        <i class="fa-solid ${client.logoIcon}"></i>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <h3 class="text-xs font-extrabold truncate">${client.name}</h3>
+                                        <p class="text-[9.5px] opacity-65 truncate">${client.sector}</p>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-bold shrink-0 ${isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600'}">
+                                    FR
+                                </span>
+                            </div>
+
+                            <!-- Category Pills -->
+                            <div class="mt-2.5 flex items-center gap-1.5 overflow-hidden">
+                                ${categories.slice(0, 3).map((cat, cIdx) => `
+                                    <span class="px-2 py-0.5 rounded-full text-[9px] font-bold shrink-0 ${
+                                        cIdx === 0 
+                                        ? palette.pillBg 
+                                        : (isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-600')
+                                    }">${cat}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Simulated Menu Items Grid -->
+                        <div class="p-3 flex-1 overflow-hidden space-y-2.5 relative">
+                            ${client.items.slice(0, 3).map(item => `
+                                <div class="rounded-2xl overflow-hidden flex flex-col ${cardSurface}">
+                                    <div class="relative h-24 w-full bg-slate-200 overflow-hidden">
+                                        <img src="${item.img}" alt="${item.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                        <span class="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-white/90 text-slate-700 flex items-center justify-center text-[9px] shadow-xs">
+                                            <i class="fa-regular fa-heart"></i>
+                                        </span>
+                                    </div>
+                                    <div class="p-2 flex items-center justify-between gap-1.5">
+                                        <div class="min-w-0">
+                                            <div class="text-[10px] font-extrabold truncate">${item.name}</div>
+                                            <div class="text-[9px] opacity-65 truncate">${item.desc}</div>
+                                        </div>
+                                        <span class="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md shrink-0 ${palette.priceText}">
+                                            ${formatPrice(item.price, client.currency)}
+                                        </span>
+                                    </div>
+                                </div>
+                            `).join('')}
+
+                            <!-- Hover Overlay CTA -->
+                            <div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/35 transition-colors flex items-center justify-center p-4">
+                                <span class="opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all px-4 py-2.5 rounded-full bg-white text-slate-900 text-xs font-extrabold shadow-xl flex items-center gap-2">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-indigo-600"></i>
+                                    <span>Personnaliser ce modèle</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Template Action Footer -->
+                        <div class="px-3.5 py-2.5 bg-white text-slate-900 border-t border-slate-100 flex items-center justify-between gap-2 shrink-0">
+                            <span class="text-[10px] font-bold text-slate-500">Modèle #${originalIndex + 1}</span>
+                            <span class="text-[11px] font-extrabold text-indigo-600 group-hover:underline flex items-center gap-1">
+                                <span>Choisir ce modèle</span>
+                                <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Touch & Swipe Support on Carousel
+        let touchStartX = 0;
+        const phonesEl = document.getElementById('phones-container');
+        phonesEl.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        phonesEl.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 40) {
+                shiftCarousel(diff > 0 ? 1 : -1);
+            }
+        }, { passive: true });
+
+        // ==================== STUDIO DE PERSONNALISATION LOGIC ====================
+        function openCustomizerStudio(index) {
+            studioBaseIndex = index;
+            loadBaseTemplateIntoStudio(index);
+            switchStudioTab('identity');
+            document.getElementById('studio-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCustomizerStudio() {
+            document.getElementById('studio-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function loadBaseTemplateIntoStudio(index) {
+            studioBaseIndex = index;
+            const base = clientsData[index];
+            // Deep clone base template so user can customize freely
+            customState = JSON.parse(JSON.stringify(base));
+            studioSelectedCategory = 'Tout';
+            studioLang = 'fr';
+            studioCart = [];
+
+            document.getElementById('studio-base-number').textContent = index + 1;
+            document.getElementById('publish-success-banner').classList.add('hidden');
+
+            syncAllStudioControls();
+            renderStudioPhonePreview();
+            updateStudioCartUI();
+        }
+
+        function resetCustomTemplate() {
+            loadBaseTemplateIntoStudio(studioBaseIndex);
+            showToast('Modèle réinitialisé aux valeurs d’origine.');
+        }
+
+        function syncAllStudioControls() {
+            document.getElementById('studio-header-name').textContent = customState.name || 'Votre Établissement';
+            document.getElementById('input-brand-name').value = customState.name;
+            document.getElementById('input-brand-sector').value = customState.sector;
+            document.getElementById('input-brand-currency').value = customState.currency;
+            document.getElementById('studio-items-badge').textContent = customState.items.length;
+
+            renderLogoIconPicker();
+            renderAccentPalettePicker();
+            updateThemeModeButtonsUI();
+            updateCardStyleButtonsUI();
+            renderStudioTemplateSwitcher();
+            renderStudioItemsEditorList();
+            updateCustomUrlAndQr();
+        }
+
+        function switchStudioTab(tabName) {
+            const tabs = ['identity', 'design', 'items', 'publish'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`studio-tab-${t}`);
+                const panel = document.getElementById(`panel-${t}`);
+                if (t === tabName) {
+                    btn.className = 'studio-tab px-4 py-2.5 text-xs sm:text-sm font-bold rounded-t-xl border-b-2 border-indigo-600 text-indigo-600 bg-white flex items-center gap-2 shrink-0';
+                    panel.classList.remove('hidden');
+                } else {
+                    btn.className = 'studio-tab px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-t-xl border-b-2 border-transparent text-slate-500 hover:text-slate-800 flex items-center gap-2 shrink-0';
+                    panel.classList.add('hidden');
+                }
+            });
+            if (tabName === 'publish') {
+                updateCustomUrlAndQr();
+            }
+        }
+
+        function updateCustomField(field, value) {
+            customState[field] = value;
+            if (field === 'name') {
+                document.getElementById('studio-header-name').textContent = value || 'Votre Établissement';
+                updateCustomUrlAndQr();
+            }
+            if (field === 'currency') {
+                updateStudioCartUI();
+            }
+            renderStudioPhonePreview();
+        }
+
+        function renderLogoIconPicker() {
+            const container = document.getElementById('logo-icon-picker');
+            container.innerHTML = logoIconsList.map(icon => {
+                const isSelected = customState.logoIcon === icon;
+                return `
+                    <button type="button" onclick="selectLogoIcon('${icon}')"
+                        class="h-10 rounded-xl border flex items-center justify-center text-sm transition-all ${
+                            isSelected 
+                            ? 'border-indigo-600 bg-indigo-600 text-white shadow-sm' 
+                            : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
+                        }">
+                        <i class="fa-solid ${icon}"></i>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectLogoIcon(icon) {
+            customState.logoIcon = icon;
+            renderLogoIconPicker();
+            renderStudioPhonePreview();
+        }
+
+        function setCustomThemeMode(mode) {
+            customState.themeMode = mode;
+            updateThemeModeButtonsUI();
+            renderStudioPhonePreview();
+        }
+
+        function updateThemeModeButtonsUI() {
+            const lightBtn = document.getElementById('btn-mode-light');
+            const darkBtn = document.getElementById('btn-mode-dark');
+            if (customState.themeMode === 'light') {
+                lightBtn.className = 'p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/40 text-left flex items-center gap-3 transition-all';
+                darkBtn.className = 'p-4 rounded-2xl border-2 border-slate-200 bg-white text-left flex items-center gap-3 transition-all';
+            } else {
+                darkBtn.className = 'p-4 rounded-2xl border-2 border-indigo-600 bg-indigo-50/40 text-left flex items-center gap-3 transition-all';
+                lightBtn.className = 'p-4 rounded-2xl border-2 border-slate-200 bg-white text-left flex items-center gap-3 transition-all';
+            }
+        }
+
+        function renderAccentPalettePicker() {
+            const container = document.getElementById('accent-palette-picker');
+            container.innerHTML = Object.entries(accentPalettes).map(([key, pal]) => {
+                const isSelected = customState.accent === key;
+                return `
+                    <button type="button" onclick="selectAccentColor('${key}')"
+                        class="p-3 rounded-xl border-2 flex items-center gap-2.5 text-left transition-all ${
+                            isSelected 
+                            ? 'border-indigo-600 bg-indigo-50/40 shadow-xs' 
+                            : 'border-slate-200 bg-white hover:border-slate-300'
+                        }">
+                        <span class="w-5 h-5 rounded-full shrink-0 border border-black/10" style="background-color: ${pal.swatch}"></span>
+                        <span class="text-xs font-bold text-slate-800">${pal.label}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectAccentColor(key) {
+            customState.accent = key;
+            renderAccentPalettePicker();
+            renderStudioPhonePreview();
+        }
+
+        function setCustomCardStyle(style) {
+            customState.cardStyle = style;
+            updateCardStyleButtonsUI();
+            renderStudioPhonePreview();
+        }
+
+        function updateCardStyleButtonsUI() {
+            const roundBtn = document.getElementById('btn-card-rounded');
+            const compBtn = document.getElementById('btn-card-compact');
+            if (customState.cardStyle === 'rounded') {
+                roundBtn.className = 'px-4 py-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/40 text-xs font-bold text-slate-900 flex items-center justify-center gap-2';
+                compBtn.className = 'px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-700 flex items-center justify-center gap-2';
+            } else {
+                compBtn.className = 'px-4 py-3 rounded-xl border-2 border-indigo-600 bg-indigo-50/40 text-xs font-bold text-slate-900 flex items-center justify-center gap-2';
+                roundBtn.className = 'px-4 py-3 rounded-xl border-2 border-slate-200 bg-white text-xs font-bold text-slate-700 flex items-center justify-center gap-2';
+            }
+        }
+
+        function renderStudioTemplateSwitcher() {
+            const container = document.getElementById('studio-template-switcher');
+            container.innerHTML = clientsData.map((client, idx) => {
+                const active = idx === studioBaseIndex;
+                return `
+                    <button type="button" onclick="loadBaseTemplateIntoStudio(${idx})"
+                        class="px-2.5 py-2 rounded-xl text-left border transition-all ${
+                            active 
+                            ? 'border-indigo-600 bg-indigo-50/80 text-indigo-950 shadow-xs' 
+                            : 'border-slate-200 hover:border-slate-300 text-slate-700 bg-white'
+                        }">
+                        <div class="text-[11px] font-bold truncate">${idx + 1}. ${client.name}</div>
+                        <div class="text-[9.5px] text-slate-500 truncate">${client.sector}</div>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // Items Management (Edit, Toggle Availability, Delete, Add)
+        function renderStudioItemsEditorList() {
+            const container = document.getElementById('studio-items-editor-list');
+            document.getElementById('studio-items-badge').textContent = customState.items.length;
+
+            if (customState.items.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 italic py-4 text-center">Aucun article dans ce menu. Ajoutez votre premier plat ci-dessus !</p>`;
+                return;
+            }
+
+            container.innerHTML = customState.items.map((item, idx) => `
+                <div class="p-3.5 rounded-2xl border border-slate-200 bg-white space-y-2.5 shadow-2xs">
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2.5 min-w-0 flex-1">
+                            <img src="${item.img}" alt="${item.name}" class="w-10 h-10 rounded-xl object-cover shrink-0 bg-slate-100">
+                            <input type="text" value="${item.name.replace(/"/g, '&quot;')}"
+                                oninput="updateCustomItem(${idx}, 'name', this.value)"
+                                class="w-full text-xs font-extrabold text-slate-900 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button type="button" onclick="toggleItemAvailability(${idx})"
+                                title="${item.available ? 'En stock (cliquez pour marquer épuisé)' : 'Épuisé (cliquez pour remettre en stock)'}"
+                                class="px-2.5 py-1.5 rounded-lg text-[10px] font-bold transition-colors ${
+                                    item.available 
+                                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
+                                    : 'bg-amber-50 text-amber-700 border border-amber-200'
+                                }">
+                                ${item.available ? 'Disponible' : 'Épuisé'}
+                            </button>
+                            <button type="button" onclick="deleteCustomItem(${idx})"
+                                title="Supprimer cet article"
+                                class="w-8 h-8 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <input type="text" value="${item.category.replace(/"/g, '&quot;')}"
+                            oninput="updateCustomItem(${idx}, 'category', this.value)"
+                            placeholder="Catégorie"
+                            class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="number" step="0.01" value="${item.price}"
+                            oninput="updateCustomItem(${idx}, 'price', parseFloat(this.value) || 0)"
+                            placeholder="Prix"
+                            class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <input type="text" value="${item.desc.replace(/"/g, '&quot;')}"
+                            oninput="updateCustomItem(${idx}, 'desc', this.value)"
+                            placeholder="Description"
+                            class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-[11px] text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateCustomItem(idx, key, value) {
+            if (!customState.items[idx]) return;
+            customState.items[idx][key] = value;
+            if (key === 'name') {
+                customState.items[idx].nameEn = value;
+            }
+            renderStudioPhonePreview();
+        }
+
+        function toggleItemAvailability(idx) {
+            if (!customState.items[idx]) return;
+            customState.items[idx].available = !customState.items[idx].available;
+            renderStudioItemsEditorList();
+            renderStudioPhonePreview();
+        }
+
+        function deleteCustomItem(idx) {
+            customState.items.splice(idx, 1);
+            studioSelectedCategory = 'Tout';
+            renderStudioItemsEditorList();
+            renderStudioPhonePreview();
+            showToast('Article supprimé du menu.');
+        }
+
+        function addNewCustomItem() {
+            const nameInput = document.getElementById('new-item-name');
+            const catInput = document.getElementById('new-item-category');
+            const priceInput = document.getElementById('new-item-price');
+            const descInput = document.getElementById('new-item-desc');
+
+            const name = nameInput.value.trim();
+            if (!name) {
+                showToast('Veuillez saisir le nom du plat ou service.');
+                nameInput.focus();
+                return;
+            }
+
+            const category = catInput.value.trim() || 'Spécialités';
+            const price = parseFloat(priceInput.value) || 12.00;
+            const desc = descInput.value.trim() || 'Préparation maison sélectionnée par le chef.';
+
+            // Pick a matching image from existing items or default gastronomy image
+            const fallbackImg = customState.items[0]?.img || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=500&q=80';
+
+            customState.items.unshift({
+                name: name.toUpperCase(),
+                nameEn: name.toUpperCase(),
+                category,
+                price,
+                available: true,
+                desc,
+                img: fallbackImg
+            });
+
+            nameInput.value = '';
+            catInput.value = '';
+            priceInput.value = '';
+            descInput.value = '';
+
+            studioSelectedCategory = 'Tout';
+            renderStudioItemsEditorList();
+            renderStudioPhonePreview();
+            showToast(`« ${name} » ajouté à votre menu !`);
+        }
+
+        // Render Live Mobile Preview inside Studio
+        function renderStudioPhonePreview() {
+            const shell = document.getElementById('studio-phone-shell');
+            const isDark = customState.themeMode === 'dark';
+            const palette = accentPalettes[customState.accent] || accentPalettes.indigo;
+
+            const shellBg = isDark ? 'bg-slate-950 text-white' : 'bg-[#F8FAFC] text-slate-900';
+            const headerBg = isDark ? 'bg-slate-900 border-b border-slate-800' : 'bg-white border-b border-slate-100';
+            const cardSurface = isDark ? 'bg-slate-900 border border-slate-800 text-white' : 'bg-white border border-slate-200/80 text-slate-900 shadow-2xs';
+
+            const categories = ['Tout', ...new Set(customState.items.map(i => i.category))];
+            if (!categories.includes(studioSelectedCategory)) {
+                studioSelectedCategory = 'Tout';
+            }
+
+            const filteredItems = studioSelectedCategory === 'Tout'
+                ? customState.items
+                : customState.items.filter(i => i.category === studioSelectedCategory);
+
+            shell.className = `w-full max-w-[325px] h-[595px] max-h-[68vh] lg:max-h-[73vh] rounded-[36px] border-[7px] border-slate-900 shadow-2xl overflow-hidden flex flex-col relative transition-colors duration-300 ${shellBg}`;
+
+            shell.innerHTML = `
+                <!-- Phone Top Speaker Notch -->
+                <div class="${headerBg} pt-2 pb-1 flex justify-center shrink-0">
+                    <div class="w-20 h-3.5 bg-slate-900 rounded-full"></div>
+                </div>
+
+                <!-- Brand Header -->
+                <div class="${headerBg} px-4 pt-2 pb-3 shrink-0">
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-sm shadow-xs ${palette.logoBg}">
+                                <i class="fa-solid ${customState.logoIcon}"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-extrabold text-sm truncate">${customState.name || 'Votre Établissement'}</h4>
+                                <p class="text-[10px] opacity-65 truncate">${customState.sector || 'Carte digitale interactive'}</p>
+                            </div>
+                        </div>
+                        <button type="button" onclick="toggleStudioPhoneLang()"
+                            class="px-2.5 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 shrink-0 ${isDark ? 'bg-slate-800 text-slate-200' : 'bg-slate-100 text-slate-700'}">
+                            <i class="fa-solid fa-globe text-[9px]"></i>
+                            <span>${studioLang === 'fr' ? 'FR' : 'EN'}</span>
+                        </button>
+                    </div>
+
+                    <!-- Interactive Category Filter Pills -->
+                    <div class="mt-3 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+                        ${categories.map(cat => {
+                            const active = studioSelectedCategory === cat;
+                            return `
+                                <button type="button" onclick="selectStudioCategory('${cat.replace(/'/g, "\\'")}')"
+                                    class="px-2.5 py-1 rounded-full text-[10px] font-bold shrink-0 transition-colors ${
+                                        active 
+                                        ? palette.pillBg 
+                                        : (isDark ? 'bg-slate-800 text-slate-300 hover:bg-slate-700' : 'bg-slate-100 text-slate-600 hover:bg-slate-200')
+                                    }">
+                                    ${cat}
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+
+                <!-- Scrollable Menu Items -->
+                <div class="p-3.5 flex-1 overflow-y-auto no-scrollbar space-y-3">
+                    ${filteredItems.map((item, idx) => {
+                        const globalIdx = customState.items.indexOf(item);
+                        const isUnavailable = !item.available;
+
+                        if (customState.cardStyle === 'compact') {
+                            return `
+                                <div class="rounded-2xl p-2.5 flex items-center gap-2.5 ${cardSurface} ${isUnavailable ? 'opacity-55' : ''}">
+                                    <img src="${item.img}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover shrink-0 bg-slate-200">
+                                    <div class="min-w-0 flex-1">
+                                        <div class="flex items-center gap-1.5">
+                                            <h5 class="text-[11px] font-extrabold truncate">${studioLang === 'fr' ? item.name : (item.nameEn || item.name)}</h5>
+                                        </div>
+                                        <p class="text-[9.5px] opacity-70 line-clamp-1 mt-0.5">${item.desc}</p>
+                                        <div class="mt-1.5 flex items-center justify-between">
+                                            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md ${palette.priceText}">
+                                                ${formatPrice(item.price, customState.currency)}
+                                            </span>
+                                            ${isUnavailable 
+                                                ? `<span class="text-[9px] font-bold text-amber-600">Épuisé</span>`
+                                                : `<button type="button" onclick="addStudioTestItem(${globalIdx})" class="w-6 h-6 rounded-lg flex items-center justify-center text-[10px] shadow-xs ${palette.btnBg}"><i class="fa-solid fa-plus"></i></button>`
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+
+                        return `
+                            <div class="rounded-2xl overflow-hidden flex flex-col ${cardSurface} ${isUnavailable ? 'opacity-60' : ''}">
+                                <div class="relative h-28 w-full bg-slate-200">
+                                    <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover">
+                                    ${isUnavailable ? `
+                                        <div class="absolute inset-0 bg-slate-900/60 flex items-center justify-center">
+                                            <span class="px-2.5 py-1 rounded-full bg-amber-400 text-slate-950 text-[10px] font-extrabold uppercase">Épuisé</span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="p-3 flex items-start justify-between gap-2">
+                                    <div class="min-w-0">
+                                        <h5 class="text-xs font-extrabold truncate">${studioLang === 'fr' ? item.name : (item.nameEn || item.name)}</h5>
+                                        <p class="text-[10px] opacity-70 line-clamp-2 mt-0.5">${item.desc}</p>
+                                        <span class="inline-block mt-1.5 text-[11px] font-extrabold px-2 py-0.5 rounded-md ${palette.priceText}">
+                                            ${formatPrice(item.price, customState.currency)}
+                                        </span>
+                                    </div>
+                                    ${!isUnavailable ? `
+                                        <button type="button" onclick="addStudioTestItem(${globalIdx})"
+                                            title="Tester l'ajout au panier"
+                                            class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 shadow-xs active:scale-90 transition-transform ${palette.btnBg}">
+                                            <i class="fa-solid fa-plus text-xs"></i>
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+
+                <!-- Branded Footer inside Phone -->
+                <div class="py-2 px-4 text-center text-[9.5px] font-medium shrink-0 ${headerBg}">
+                    <span class="opacity-65">Menu digital propulsé par</span> <strong>Bondil-studio</strong>
+                </div>
+            `;
+        }
+
+        function selectStudioCategory(cat) {
+            studioSelectedCategory = cat;
+            renderStudioPhonePreview();
+        }
+
+        function toggleStudioPhoneLang() {
+            studioLang = studioLang === 'fr' ? 'en' : 'fr';
+            renderStudioPhonePreview();
+        }
+
+        function addStudioTestItem(idx) {
+            const item = customState.items[idx];
+            if (!item || !item.available) return;
+            const existing = studioCart.find(c => c.name === item.name);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                studioCart.push({ ...item, qty: 1 });
+            }
+            updateStudioCartUI();
+            showToast(`« ${item.name} » ajouté au panier test !`);
+        }
+
+        function clearStudioCart() {
+            studioCart = [];
+            updateStudioCartUI();
+        }
+
+        function updateStudioCartUI() {
+            const countEl = document.getElementById('studio-cart-count');
+            const totalEl = document.getElementById('studio-cart-total');
+            const clearBtn = document.getElementById('studio-cart-clear');
+
+            const qty = studioCart.reduce((s, i) => s + i.qty, 0);
+            const sum = studioCart.reduce((s, i) => s + i.price * i.qty, 0);
+
+            countEl.textContent = `${qty} article${qty > 1 ? 's' : ''} testé${qty > 1 ? 's' : ''}`;
+            totalEl.textContent = formatPrice(sum, customState.currency);
+            if (qty > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+        }
+
+        // QR Code & Custom Bondil-studio URL Generator
+        function updateCustomUrlAndQr() {
+            const slug = slugify(customState.name);
+            const fullUrl = `https://Bondil-studio.com/menu/${slug}`;
+            document.getElementById('custom-bondil-url').value = fullUrl;
+
+            // Generate deterministic crisp SVG QR matrix from slug
+            const size = 11;
+            let hash = 0;
+            for (let i = 0; i < slug.length; i++) {
+                hash = ((hash << 5) - hash) + slug.charCodeAt(i);
+                hash |= 0;
+            }
+
+            let rects = '';
+            const cell = 10;
+            for (let r = 0; r < size; r++) {
+                for (let c = 0; c < size; c++) {
+                    // Finder patterns in 3 corners
+                    const inTopLeft = r < 3 && c < 3;
+                    const inTopRight = r < 3 && c >= size - 3;
+                    const inBottomLeft = r >= size - 3 && c < 3;
+
+                    let filled = false;
+                    if (inTopLeft || inTopRight || inBottomLeft) {
+                        const lr = r % (size - 3);
+                        const lc = c % (size - 3);
+                        filled = (lr === 0 || lr === 2 || lc === 0 || lc === 2 || (lr === 1 && lc === 1));
+                    } else {
+                        const seed = Math.abs(Math.sin(hash + r * 31 + c * 17));
+                        filled = seed > 0.48;
+                    }
+
+                    if (filled) {
+                        rects += `<rect x="${c * cell}" y="${r * cell}" width="${cell - 1}" height="${cell - 1}" rx="2" fill="#0F172A"/>`;
+                    }
+                }
+            }
+
+            document.getElementById('generated-qr-svg').innerHTML = `
+                <svg viewBox="0 0 ${size * cell} ${size * cell}" class="w-full h-full">
+                    ${rects}
+                </svg>
+            `;
+        }
+
+        function copyCustomBondilUrl() {
+            const input = document.getElementById('custom-bondil-url');
+            input.select();
+            document.execCommand('copy');
+            showToast('Lien Bondil-studio copié dans le presse-papiers !');
+        }
+
+        function publishCustomMenu() {
+            switchStudioTab('publish');
+            document.getElementById('publish-success-banner').classList.remove('hidden');
+            showToast(`Menu « ${customState.name} » publié sur Bondil-studio !`);
+        }
+
+        // Toast helper
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3200);
+        }
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Close modal on backdrop click or Escape key
+        document.getElementById('studio-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'studio-modal') closeCustomizerStudio();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeCustomizerStudio();
+        });
+
+        // Initial render on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initClientDropdown();
+            renderPaginationBullets();
+            renderPhonesShowcase();
+            startAutoplay();
+        });
+    </script>
+</body>
+</html>

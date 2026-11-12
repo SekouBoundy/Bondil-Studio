@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Digital | Bondil-studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                            700: '#3730a3',
+                            900: '#1e1b4b',
+                        },
+                        slateDark: '#2B2F38',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#F8FAFC] text-[#2B2F38] font-sans antialiased">
+
+    <!-- ==================== PAGE HEADER ==================== -->
+    <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+        <a href="index.html" class="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 mb-6 block">
+            <i class="fa-solid fa-arrow-left"></i> Retour à Bondil-studio
+        </a>
+        <div id="menu-page-header">
+            <!-- Injected by menu.js -->
+        </div>
+    </header>
+
+    <!-- ==================== CUSTOMER MENU (PHONE FRAME) ==================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12 flex justify-center">
+        <div id="customer-phone-shell" class="w-full max-w-[325px] h-[640px] rounded-[36px] border-[7px] border-slate-900 shadow-2xl overflow-hidden flex flex-col relative bg-white mx-auto">
+            <!-- Customer menu rendered by menu.js -->
+        </div>
+    </main>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+        <p class="text-xs text-slate-400">
+            Menu digital généré par <a href="index.html" class="text-indigo-600 hover:underline font-semibold">Bondil-studio</a> •
+            Scannez le QR Code pour ouvrir ce menu sur votre smartphone.
+        </p>
+    </div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/menu.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            initMenu();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+/* =========================================
+   Bondil-studio — Custom Styles
+   Extracted from bondil_studio_menus_digitaux_qr_codes.html
+   ========================================= */
+
+/* Custom scrollbar hiding for sleek mobile previews */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth phone card transitions */
+.phone-mockup {
+    transition: all 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.phone-mockup:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+.phone-featured {
+    transform: scale(1.06);
+    z-index: 20;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.28);
+}
+.phone-featured:hover {
+    transform: translateY(-8px) scale(1.08);
+}
+.phone-side {
+    opacity: 0.94;
+    box-shadow: 0 18px 36px -10px rgba(15, 23, 42, 0.16);
+}
+.phone-edge {
+    opacity: 0.65;
+    transform: scale(0.95);
+}
+.phone-edge:hover {
+    opacity: 0.95;
+    transform: translateY(-4px) scale(0.98);
+}
+
+@keyframes pulseSlow {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+}
+.animate-pulse-slow {
+    animation: pulseSlow 4s infinite ease-in-out;
+}
